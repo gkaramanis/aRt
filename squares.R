@@ -1,5 +1,6 @@
 library(ggplot2)
 library(randomcoloR)
+library(here)
 
 makeMatrix <- function(n) {
   z <- data.frame(matrix(ncol = n + 1, nrow = n ^ 2))
@@ -15,9 +16,11 @@ makeMatrix <- function(n) {
     q <- paste(q, " + geom_tile(aes(X1, X2, width = ", wh, ", height = ", wh, ", fill = ", nam, "))", sep = "")
   }
   
-  qq <- paste(q, "theme_void() + theme(legend.position = \'none\') + ggsave(\"squares.png\", width = 2, height = 2)", sep = " + ")
+  qq <- paste(q, "theme_void() + theme(legend.position = \'none\')", sep = " + ")
   print(qq)
   eval(parse(text = qq))
   }
 
 makeMatrix(5)
+
+ggsave(here("squares.png"), height = 5, width = 5)
