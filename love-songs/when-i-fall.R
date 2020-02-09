@@ -2,19 +2,33 @@ library(tidyverse)
 library(tidytext)
 library(genius)
 library(here)
+library(ggpage)
 
-#artist = "Nat King Cole"
-#song = "When I fall in love"
+artist = "Nat King Cole"
+song = "When I fall in love"
 
 song = "you give love a bad name"
 artist = "bon jovi"
+
+song = "livin on a prayer"
+artist = "bon jovi"
+
+song = "bad romance"
+artist = "lady gaga"
 
 lyrics <- genius_lyrics(
   artist = artist,
   song = song
   ) %>%
   select(line, text = lyric) %>%
-  add_row(text = song, line = -1, .before = 1)
+  mutate(
+    text = replace_na(text, ""),
+    text = paste0(text, "\n")
+    ) %>% 
+  add_row(text = song, line = -1, .before = 1) 
+
+lyrics %>% 
+  ggpage_quick()
 
 song_words <- lyrics %>% 
   unnest_tokens(word, text) %>% 
