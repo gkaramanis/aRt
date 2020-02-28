@@ -3,21 +3,21 @@ library(ambient)
 library(here)
 
 # Settings
-nx = 300 # points on x axis
-ny = 300 # points on y axis
-n_curves = 10000 # number of lines to draw
-n_steps = 20 # number of steps in every drawn line
-step_length = 3 # length of step
+nx = 200 # points on x axis
+ny = 200 # points on y axis
+n_curves = 1000 # number of lines to draw
+n_steps = 12 # number of steps in every drawn line
+step_length = 2 # length of step
 limit = n_steps * step_length # limits when calculating lines
-curve_stroke = 0.3 # stroke width of lines
-curve_alpha = 0.5 # alpha of lines
+curve_stroke = 2 # stroke width of lines
+curve_alpha = 0.7 # alpha of lines
 
 # Create matrix with nx * ny points, values are angle with Perlin noise
 pnt <- array(noise_perlin(c(nx, ny)), dim = c(nx, ny), dimnames = list(1:nx, 1:ny)) * pi * 2
 
 # Create matrix for lines (segments with start and end points)
-dat <- matrix(nrow = n_curves * n_steps, ncol = 5) 
-colnames(dat) <- c("x_start", "y_start", "a", "x_end", "y_end")
+dat <- matrix(nrow = n_curves * n_steps, ncol = 7) 
+colnames(dat) <- c("x_start", "y_start", "a", "x_end", "y_end", "l", "i")
 
 # Loop for calculations
 for (l in 1:n_curves-1) { # loop through lines
@@ -37,6 +37,8 @@ for (l in 1:n_curves-1) { # loop through lines
     dat[i + l * n_steps, 3] = a
     dat[i + l * n_steps, 4] = x_end
     dat[i + l * n_steps, 5] = y_end
+    dat[i + l * n_steps, 6] = l   # can use this for colour
+    dat[i + l * n_steps, 7] = i   # can use this for colour
     # create starting point for next step from previous end point, get angle for the "new" point from the original matrix 
     x_start = x_end
     y_start = y_end
@@ -50,12 +52,14 @@ dat_df <- as.data.frame(dat)
 # Plot and save image
 ggplot(dat_df) +
   geom_segment(aes(x = x_start, y = y_start,
-                   xend = x_end, yend = y_end),
-               size = curve_stroke, alpha = curve_alpha) +
+                   xend = x_end, yend = y_end, color = i),
+               size = curve_stroke, alpha = curve_alpha,
+               lineend = "butt", linejoin = "round") + # change those for different effects: lineend = c('round', 'butt', 'square'), linejoin = c('round', 'mitre', 'bevel')
   coord_fixed(xlim = c(limit * 1.5, nx - limit * 1.5), ylim = c(limit * 1.5, ny - limit * 1.5)) + # "crop" to fill the frame
   theme_void() +
   theme(
-    legend.position = "none"
+    legend.position = "none",
+    plot.background = element_rect(fill = "black")
   ) +
   ggsave(here::here("flow", "plots", paste0("flow-", format(Sys.time(), "%Y%m%d_%H%M%S"), ".png")), dpi = 320, width = 7, height = 7)
 
