@@ -54,6 +54,9 @@ ggplot(dat_df) +
                size = curve_stroke, alpha = curve_alpha) +
   coord_fixed(xlim = c(limit * 1.5, nx - limit * 1.5), ylim = c(limit * 1.5, ny - limit * 1.5)) + # "crop" to fill the frame
   theme_void() +
+  theme(
+    legend.position = "none"
+  ) +
   ggsave(here::here("flow", "plots", paste0("flow-", format(Sys.time(), "%Y%m%d_%H%M%S"), ".png")), dpi = 320, width = 7, height = 7)
 
 # Create data frame from settings
