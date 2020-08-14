@@ -30,11 +30,15 @@ img_df <- as.data.frame.table(img_array) %>%
 		# convert b (0-255) to bf (1-0), so that "brighter" values become smaller bars
 		bf = 1 - b / 255
 		)
- 
+
+# Colors, fill and background
+col_fill <- "black"
+col_bg <- "#F1E34C"
+
 ggplot(img_df) +
-	geom_rect(aes(xmin = x, xmax = x + bf * 0.9, ymin = y, ymax = y + 0.85), fill = "#003366", color = NA) +
+	geom_rect(aes(xmin = x, xmax = x + bf * 0.9, ymin = y, ymax = y + 0.85), fill = col_fill, color = NA) +
   scale_y_reverse() +
-  coord_fixed() +
-  theme_minimal() +
-  theme(legend.position = "none") +
+  coord_fixed(expand = FALSE) +
+  theme_void() +
+  theme(legend.position = "none", plot.background = element_rect(fill = col_bg, color = NA)) +
 	ggsave("split-bar/plots/keanu.png")
