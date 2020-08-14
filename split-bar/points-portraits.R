@@ -38,8 +38,8 @@ col_bg <- "#F1E34C"
 ggplot(img_df) +
   geom_point(aes(x = x, y = y, size = bf), color = col_fill) +
   scale_y_reverse() +
-  scale_size_continuous(range = c(0, 2.5)) +
+  scale_size_continuous(range = c(0, 3)) +
   coord_fixed(expand = FALSE) +
   theme_void() +
   theme(legend.position = "none", plot.background = element_rect(fill = col_bg, color = NA)) +
-  ggsave("split-bar/plots/keanu-p.png")
+  ggsave("split-bar/plots/keanu-p.png", height = 8, width = 7)
