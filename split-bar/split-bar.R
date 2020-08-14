@@ -3,7 +3,7 @@ library(dplyr)
 library(magick)
 
 # Read in image and convert to grayscale
-img <- image_read("images/keanu.jpg") %>%
+img <- image_read("split-bar/images/keanu.jpg") %>%
   image_convert(colorspace = "gray")
 
 # Get dimensions
@@ -27,14 +27,14 @@ img_df <- as.data.frame.table(img_array) %>%
   `colnames<-`(c("y", "x", "b")) %>% 
   mutate(
 		across(everything(), as.numeric),
-		# convert b (0-255) to bf (1-0), so that "brighter" values become smaller bars, then multiple with 0.9 in order to get a horizontal margin between bars
-		bf = (1 - b / 255) * 0.9  
+		# convert b (0-255) to bf (1-0), so that "brighter" values become smaller bars
+		bf = 1 - b / 255
 		)
  
 ggplot(img_df) +
-	geom_rect(aes(xmin = x, xmax = x + bf, ymin = y, ymax = y + 0.85), fill = "#003366", color = NA) +
+	geom_rect(aes(xmin = x, xmax = x + bf * 0.9, ymin = y, ymax = y + 0.85), fill = "#003366", color = NA) +
   scale_y_reverse() +
   coord_fixed() +
   theme_minimal() +
   theme(legend.position = "none") +
-	ggsave("plots/keanu.png")
+	ggsave("split-bar/plots/keanu.png")
