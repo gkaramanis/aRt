@@ -4,3 +4,6 @@ Scripts to recreate the process shown [here](https://blog.datawrapper.de/stacked
 ![](plots/georgios.png)
 ![](plots/keanu.png)
 ![](plots/keanu-t.png)
+![](plots/gaga-l.png)
+![](plots/jimi-rgb.png)
+![](plots/gaga-rgb.png)
