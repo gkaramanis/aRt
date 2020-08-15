@@ -4,7 +4,7 @@ library(tidyr)
 library(magick)
 
 # Read in image and convert to grayscale
-img <- image_read("split-bar/images/freddie.jpg") %>%
+img <- image_read("split-bar/images/gaga.jpg") %>%
   image_convert(colorspace = "gray")
 
 # Get dimensions
@@ -47,4 +47,4 @@ ggplot(img_df) +
   theme_void() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = col_bg, color = NA)) +
-  ggsave("split-bar/plots/freddie-l.png")
+  ggsave("split-bar/plots/gaga-l.png")
