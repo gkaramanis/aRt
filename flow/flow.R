@@ -5,15 +5,15 @@ library(here)
 # Settings
 nx = 200 # points on x axis
 ny = 200 # points on y axis
-n_curves = 1000 # number of lines to draw
-n_steps = 12 # number of steps in every drawn line
-step_length = 2 # length of step
+n_curves = 15000 # number of lines to draw
+n_steps = 20 # number of steps in every drawn line
+step_length = 1 # length of step
 limit = n_steps * step_length # limits when calculating lines
-curve_stroke = 2 # stroke width of lines
-curve_alpha = 0.7 # alpha of lines
+curve_stroke = 1 # stroke width of lines
+curve_alpha = 0.1 # alpha of lines
 
 # Create matrix with nx * ny points, values are angle with Perlin noise
-pnt <- array(noise_perlin(c(nx, ny)), dim = c(nx, ny), dimnames = list(1:nx, 1:ny)) * pi * 2
+pnt <- array(noise_perlin(c(nx, ny)), dim = c(nx, ny), dimnames = list(1:nx, 1:ny)) * pi * 4
 
 # Create matrix for lines (segments with start and end points)
 dat <- matrix(nrow = n_curves * n_steps, ncol = 7) 
@@ -52,9 +52,11 @@ dat_df <- as.data.frame(dat)
 # Plot and save image
 ggplot(dat_df) +
   geom_segment(aes(x = x_start, y = y_start,
-                   xend = x_end, yend = y_end, color = i),
+                   xend = x_end, yend = y_end, color = l),
                size = curve_stroke, alpha = curve_alpha,
                lineend = "butt", linejoin = "round") + # change those for different effects: lineend = c('round', 'butt', 'square'), linejoin = c('round', 'mitre', 'bevel')
+  scale_color_gradient(low = "black", high = "#8CCCE4") +
+  scale_fill_gradient(low = "black", high = "#8CCCE4") +
   coord_fixed(xlim = c(limit * 1.5, nx - limit * 1.5), ylim = c(limit * 1.5, ny - limit * 1.5)) + # "crop" to fill the frame
   theme_void() +
   theme(
