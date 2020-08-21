@@ -71,5 +71,5 @@ ggplot(img_df) +
   theme_void() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = "black", color = NA))
-+
-  ggsave("split-bar/plots/keanu-rgb.png", width = 8, height = 8 / img_ratio)
+
+  # ggsave("split-bar/plots/keanu-rgb.png", width = 8, height = 8 / img_ratio)

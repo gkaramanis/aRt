@@ -41,5 +41,6 @@ ggplot(img_df) +
   scale_size_continuous(range = c(0, 3)) +
   coord_fixed(expand = FALSE) +
   theme_void() +
-  theme(legend.position = "none", plot.background = element_rect(fill = col_bg, color = NA)) +
-  ggsave("split-bar/plots/keanu-p.png", height = 8, width = 7)
+  theme(legend.position = "none", plot.background = element_rect(fill = col_bg, color = NA))
+
+  # ggsave("split-bar/plots/keanu-p.png", height = 8, width = 7)
