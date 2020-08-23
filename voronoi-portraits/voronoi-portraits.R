@@ -5,7 +5,7 @@ library(ggforce)
 
 
 img_name <- "keanu"
-threshold <- 0.6
+threshold <- 0.6 # Used to discard darker pixels later 
 
 # Read in image and convert to grayscale
 img <- image_read(paste0("voronoi-portraits/images/", img_name, ".jpg")) %>%
@@ -16,7 +16,7 @@ img_w <- image_info(img)$width
 img_h <- image_info(img)$height
 img_ratio <- img_w / img_h
 
-# Resize the longest dimension to 120 pixels
+# Resize the longest dimension to 120 pixels, may need adjustment depending on image, higher value means more points and more "detail"
 if (img_w >= img_h) {
   img <- image_resize(img, "120")
 } else {
