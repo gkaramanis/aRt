@@ -4,7 +4,7 @@ library(magick)
 library(ggforce)
 
 
-img_name <- "keanu"
+img_name <- "georgy"
 threshold <- 0.6 # Used to discard darker pixels later 
 
 # Read in image and convert to grayscale
