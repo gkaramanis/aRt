@@ -16,8 +16,7 @@ t = 100
 tiles <- data.frame(
   col = rep(1:sqrt(t), sqrt(t)),
   row = rep(1:sqrt(t), each = sqrt(t)),
-  # n = rep(1:4, length.out = t)
-  n = sample(c(1, 2, 3, 4), replace = TRUE, size = n)
+  n = sample(c(1, 2, 3, 4), replace = TRUE, size = t)
   ) %>% 
   left_join(triangles) %>% 
   unnest(c(x, y))
