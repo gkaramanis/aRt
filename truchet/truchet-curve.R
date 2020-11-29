@@ -22,7 +22,7 @@ tiles <- data.frame(
   unnest(c(x, y))
 
 ggplot(tiles) +
-  geom_bspline(aes(col + x, row + y, group = interaction(col, row)), size = 2, n = 10, color = "yellow") +
+  geom_bspline(aes(col + x, row + y, group = interaction(col, row)), size = 2, n = 15, color = "yellow", lineend = "round") +
   coord_fixed() +
   theme_void() +
   theme(
