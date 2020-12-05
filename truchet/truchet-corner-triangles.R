@@ -1,6 +1,5 @@
 library(tidyr)
 library(dplyr)
-library(ggforce)
 
 
 curves <- tribble(
