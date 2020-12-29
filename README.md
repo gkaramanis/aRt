@@ -1,2 +1,4 @@
 # aRt
-Making art with R
+
+Deprecated, new repo at https://github.com/gkaramanis/aRtist
+
